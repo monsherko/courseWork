@@ -1,5 +1,5 @@
-std::pair<cv::Mat, int> copySourceImg(cv::Mat sourceImg) {
-
+std::pair<cv::Mat, int> copySourceImg(cv::Mat sourceImg) 
+{
       int maxThresh = 0;
       cv::Mat targetImg(sourceImg.rows, sourceImg.cols, CV_8UC1);
 
@@ -25,7 +25,6 @@ cv::Mat halftoning(cv::Mat sourceImg, T** matrix, int sizeMatrix)
        cv::Mat dithImg;
        cv::cvtColor(sourceImg, dithImg, CV_BGR2GRAY);
        std::pair<cv::Mat, int> res = copySourceImg(dithImg);
-
 
         for ( int i = 0; i < dithImg.rows ; i++)
         {
@@ -69,17 +68,13 @@ uint8_t saturated_add(uint8_t val1, int8_t val2)
         int16_t val1_int = val1;
         int16_t val2_int = val2;
 
-
         return val1+val2 > 255 ? 255 : ((val1+val2) < 0? 0 : (val1+val2));
-
 }
 // Floyd-Steinberg algorithm ...
 template<typename Type>
-cv::Mat halftoningFloydStreinberg(cv::Mat sourceImg) {
-
+cv::Mat halftoningFloydStreinberg(cv::Mat sourceImg) 
+{
         int error;
-
-
         cv::Mat dithImg;
         cv::cvtColor(sourceImg, dithImg, CV_BGR2GRAY);
 
@@ -95,8 +90,6 @@ cv::Mat halftoningFloydStreinberg(cv::Mat sourceImg) {
                                 error = dithImg.at<Type>(i,j) - 255;
                                 dithImg.at<Type>(i,j) = 255;
                         }
-
-
 
                         if( (j != 0) && (i != (dithImg.rows-1)) && (j != (dithImg.cols - 1))) {
                                 dithImg.at<Type>(i+0,j+1) = saturated_add(dithImg.at<Type>(i+0,j+1),(error * 7) / 16);
